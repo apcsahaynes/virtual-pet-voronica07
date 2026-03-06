@@ -1,11 +1,13 @@
+
 VirtualPet myPet;
 
 Button feedButton;
 Button playButton;
+Button sleepButton;
 
 // How many milliseconds between each status update
 // (increase to slow down, decrease to speed up)
-final int UPDATE_INTERVAL = 10000;
+final int UPDATE_INTERVAL = 1000;
 int lastUpdateTime = 0;
 
 // ---- Action message ----
@@ -17,12 +19,13 @@ void setup() {
   size(600, 500);
   textFont(createFont("Arial", 16, true));
 
-  myPet = new VirtualPet4("Coco");
+  myPet = new VirtualPet("Cilantro");
 
   // Buttons sit along the bottom of the screen
   // Button(label, x, y, width, height)
-  feedButton = new Button("Feed", 150, 430, 120, 45);
-  playButton = new Button("Play", 330, 430, 120, 45);
+  feedButton = new Button("Feed", 100, 430, 120, 45);
+  playButton = new Button("Play", 280, 430, 120, 45);
+  sleepButton = new Button("Sleep", 460,430,120,45); 
 }
 
 void draw() {
@@ -39,12 +42,13 @@ void draw() {
   drawStats(myPet);
   feedButton.display();
   playButton.display();
+  sleepButton.display();
   drawMessage();
 }
 
 void mousePressed() {
   if (feedButton.isClicked(mouseX, mouseY)) {
-    Food f = new Food("Watermelon", 3, 2, 2);
+    Food f = new Food("Strawberry Mochi", 3, 2, 2);
     myPet.feed(f);
     showMessage(f.getName() + " eaten!");
   }
@@ -53,6 +57,12 @@ void mousePressed() {
     Game g = new Game("Coin Toss", 2, 1);
     myPet.play(g);
     showMessage(g.getName() + " played!");
+  }
+  
+  if (sleepButton.isClicked(mouseX, mouseY)){
+    Sleep s = new Sleep("Sleep", 10);
+    myPet.sleep(s);
+    showMessage("Cilantro " + "slept");
   }
 }
 
